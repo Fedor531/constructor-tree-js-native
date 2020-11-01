@@ -147,9 +147,9 @@ export class Tree {
   // Метод возращает дерево в виде объекта
   getObjectTree() {
 
-    const mainTreeChildren = (function getObj(currentNode) {
+    const mainTreeChildren = (function getObjectsArray(currentNode) {
 
-      const objects = []
+      const objectsChildrenArray = []
 
       currentNode.children.forEach(function (item, index) {
         const obj = {
@@ -157,14 +157,14 @@ export class Tree {
           id: item._id,
         }
 
-        if (getObj(currentNode.children[index]).length) {
-          obj.children = getObj(currentNode.children[index])
+        if (getObjectsArray(currentNode.children[index]).length) {
+          obj.children = getObjectsArray(currentNode.children[index])
         }
 
-        objects.push(obj)
+        objectsChildrenArray.push(obj)
       })
 
-      return objects
+      return objectsChildrenArray
 
     })(this._root);
 
