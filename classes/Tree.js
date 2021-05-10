@@ -1,10 +1,10 @@
 // Дерево
 class Tree {
     constructor(data, siteRender) {
-        this._root = new Node(data);
+        this.root = new Node(data);
         this.siteRender = siteRender;
-        this._id = this._root._id
-        this.checkEventClick = this.checkEventClick.bind(this)
+        this.id = this.root.id;
+        this.checkEventClick = this.checkEventClick.bind(this);
     }
 
     // Метод обхода дерева (в глубину)
@@ -20,7 +20,7 @@ class Tree {
             // шаг 4
             callback(currentNode);
             // шаг 1
-        })(this._root);
+        })(this.root);
 
     };
 
@@ -34,9 +34,9 @@ class Tree {
 
             // Перебираем children корневой node (узел) и с помощью рекурсивной функции createTreeHTML обходим все узлы и создаем их шаблоны, записывая в друг друга
             currentNode.children.forEach(function (item, index) {
-                li += `<li class='element' id=${item._id}>
-              <button id=${item._id} class='addBtn'>+</button>
-              <button id=${item._id} class='delBtn'>-</button>
+                li += `<li class='element' id=${item.id}>
+              <button id=${item.id} class='addBtn'>+</button>
+              <button id=${item.id} class='delBtn'>-</button>
               ${item.data}${createTreeHTML(currentNode.children[index])}
               
               </li>`;
@@ -48,14 +48,14 @@ class Tree {
 
             return ul || '';
 
-        })(this._root);
+        })(this.root);
 
         // Формируем итоговую разметку дерева
-        const treeHTML = `<ul class="tree tree-${this._root._id}">
-                        <li id=${this._root._id}>
-                          <button id=${this._root._id} class='addBtn'>+</button>
-                          <button id=${this._root._id} class='delTreeBtn'>-</button> 
-                          ${this._root.data}
+        const treeHTML = `<ul class="tree tree-${this.root.id}">
+                        <li id=${this.root.id}>
+                          <button id=${this.root.id} class='addBtn'>+</button>
+                          <button id=${this.root.id} class='delTreeBtn'>-</button> 
+                          ${this.root.data}
                         </li>
                       ${childTreeHTML}
                       </ul>`
@@ -75,7 +75,7 @@ class Tree {
         let parent = null;
 
         function callback(node) {
-            if (id === node._id) {
+            if (id === node.id) {
                 parent = node;
             }
         };
@@ -95,7 +95,7 @@ class Tree {
         let index;
 
         function callback(node) {
-            if (id === node._id) {
+            if (id === node.id) {
                 parent = node.parent;
             }
         };
@@ -114,7 +114,7 @@ class Tree {
         let index;
 
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i]._id === id) {
+            if (arr[i].id === id) {
                 index = i;
             }
         }
@@ -124,7 +124,7 @@ class Tree {
     // Метод проверки события на дереве
     checkEventClick(event) {
         if (event.target.classList.contains('addBtn')) {
-            const nameChildren = prompt('Введите название узла')
+            const nameChildren = prompt('Enter node name')
             if (nameChildren) {
                 this.addChild(nameChildren, event.target.id)
                 this.siteRender()
@@ -132,7 +132,7 @@ class Tree {
         }
 
         if (event.target.classList.contains('delBtn')) {
-            if (confirm('Вы действительно хотите удалить узел?')) {
+            if (confirm('Do you really want to remove the node?')) {
                 this.removeChild(event.target.id)
                 this.siteRender()
             }
@@ -140,7 +140,7 @@ class Tree {
     }
 
     listeners() {
-        document.querySelector(`.tree-${this._root._id}`).addEventListener('click', this.checkEventClick)
+        document.querySelector(`.tree-${this.root.id}`).addEventListener('click', this.checkEventClick)
     }
 
     // Метод возращает дерево в виде объекта
@@ -153,7 +153,7 @@ class Tree {
             currentNode.children.forEach(function (item, index) {
                 const obj = {
                     name: item.data,
-                    id: item._id,
+                    id: item.id,
                 }
 
                 if (getObjectsArray(currentNode.children[index]).length) {
@@ -165,11 +165,11 @@ class Tree {
 
             return objectsChildrenArray
 
-        })(this._root);
+        })(this.root);
 
         const mainTreeObj = {
-            name: this._root.data,
-            id: this._root._id,
+            name: this.root.data,
+            id: this.root.id,
             children: mainTreeChildren
         }
 
