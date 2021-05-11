@@ -1,9 +1,9 @@
-// Дерево
 class Tree {
-    constructor(data, siteRender) {
-        this.root = new Node(data);
-        this.siteRender = siteRender;
-        this.id = this.root.id;
+    constructor(name, siteRender) {
+        this.root = new Node(name); // Node instance
+        this.id = this.root.id; // id
+        this.siteRender = siteRender; // callback render tree
+
         this.checkEventClick = this.checkEventClick.bind(this);
     }
 
@@ -37,7 +37,7 @@ class Tree {
                 li += `<li class='element' id=${item.id}>
               <button id=${item.id} class='addBtn'>+</button>
               <button id=${item.id} class='delBtn'>-</button>
-              ${item.data}${createTreeHTML(currentNode.children[index])}
+              ${item.name}${createTreeHTML(currentNode.children[index])}
               
               </li>`;
             })
@@ -55,7 +55,7 @@ class Tree {
                         <li id=${this.root.id}>
                           <button id=${this.root.id} class='addBtn'>+</button>
                           <button id=${this.root.id} class='delTreeBtn'>-</button> 
-                          ${this.root.data}
+                          ${this.root.name}
                         </li>
                       ${childTreeHTML}
                       </ul>`
@@ -152,7 +152,7 @@ class Tree {
 
             currentNode.children.forEach(function (item, index) {
                 const obj = {
-                    name: item.data,
+                    name: item.name,
                     id: item.id,
                 }
 
@@ -168,7 +168,7 @@ class Tree {
         })(this.root);
 
         const mainTreeObj = {
-            name: this.root.data,
+            name: this.root.name,
             id: this.root.id,
             children: mainTreeChildren
         }

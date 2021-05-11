@@ -1,18 +1,17 @@
-const trees = []
-
 const addTreeButton = document.querySelector('.add-tree-button')
 const jsonButton = document.querySelector('.json-button')
-const container = document.querySelector('.container')
+const container = document.querySelector('.tree-container')
 
-// Переменная для отрисовки и управлениями деревьями
-const site = new Site(trees, container)
-site.render()
+const trees = [] // Tree storage array
 
-// Callback функции render()
-const siteRender = () => site.render()
+// Tree rendering control
+const treesTemplate = new TreeTemplate(trees, container)
 
-// Шаблон произвольного дерева
-const tree = new Tree('1', siteRender);
+// Callback render
+const treesTemplateRender = () => treesTemplate.render()
+
+// Arbitrary tree template
+const tree = new Tree('1', treesTemplateRender);
 
 tree.root.children.push(new Node('1.1'));
 tree.root.children[0].parent = tree.root;
@@ -29,31 +28,29 @@ tree.root.children[2].parent = tree.root;
 tree.root.children.push(new Node('1.4'));
 tree.root.children[3].parent = tree.root;
 
-// Добавляем шаблон дерева
-site.addNewTree(tree)
+// Add tree template
+treesTemplate.addNewTree(tree)
 
-// Функция создает новое дерево и добавляет на сайт
 function addNewTree() {
-    const nameTree = prompt('Введите имя дерева')
+    const nameTree = prompt('Enter the tree name')
     if (nameTree) {
-        const newTree = new Tree(nameTree, siteRender)
-        site.addNewTree(newTree)
+        const newTree = new Tree(nameTree, treesTemplateRender)
+        treesTemplate.addNewTree(newTree)
     }
 }
 
-// Функция удаления дерева
 function deleteTree(event) {
     if (event.target.classList.contains('delTreeBtn')) {
         if (confirm('Do you really want to delete the whole tree?')) {
-            site.removeTree(event.target.id)
+            treesTemplate.removeTree(event.target.id)
         }
     }
 }
 
-// Функция вывода массива объектов-деревьев в JSON формате
+// Show JSON
 function getTreeJSON() {
     const arr = []
-    trees.forEach(function (item) {
+    trees.forEach((item) => {
         arr.push(item.getObjectTree())
     })
     console.log(JSON.stringify(arr))

@@ -1,9 +1,8 @@
-// Узел
 class Node {
-    constructor(data) {
-        this.data = data; // Хранит название узла
-        this.parent = null; // Указывает на родительский элемент узла
-        this.children = []; // Содержит массив дочерних элементов
-        this.id = (Math.random() * 10000).toFixed() // Рандомный ID
+    constructor(name) {
+        this.name = name // Node name
+        this.parent = null // Points to the parent node element
+        this.children = [] // Contains an array of child elements
+        this.id = (Math.random() * 10000).toFixed() // Random id
     }
 }
