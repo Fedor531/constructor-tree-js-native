@@ -1,6 +1,6 @@
 # Tree constructor
 #### Description: Test task
-#### Company: ["t-studio"](https://tdsgn.ru/)
+#### Company:  ["t-studio"](https://tdsgn.ru/)
 #### Position: Frontend developer
 #### Task: 
 Create an interface to build an element tree for records. <br/>
